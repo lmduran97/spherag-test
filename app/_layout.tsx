@@ -1,24 +1,26 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import '../global.css'
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { QueryClientProvider } from '@tanstack/react-query'
+import { Stack } from 'expo-router'
+import { StatusBar } from 'expo-status-bar'
+import 'react-native-reanimated'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+import { queryClient } from '@/src/lib/query/queryClient'
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+    <QueryClientProvider client={queryClient}>
+      <SafeAreaProvider>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name='index' />
+          <Stack.Screen name='login' />
+          <Stack.Screen name='farms/index' />
+          <Stack.Screen name='farms/[farmId]/index' />
+          <Stack.Screen name='farms/[farmId]/atlas/[id]' />
+        </Stack>
+        <StatusBar style='auto' />
+      </SafeAreaProvider>
+    </QueryClientProvider>
+  )
 }

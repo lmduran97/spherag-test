@@ -1,6 +1,10 @@
-import { formatDate } from '@/src/utils/functions'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
-import { Pressable, Text } from 'react-native'
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5'
+import { Linking, Pressable, Text, View } from 'react-native'
+
+import { formatDate } from '@/src/utils/functions'
+import { router } from 'expo-router'
+import React from 'react'
 import { Farm } from '../types/farms.types'
 
 type FarmCardProps = {
@@ -8,20 +12,49 @@ type FarmCardProps = {
 }
 
 export const FarmCard = ({ farm }: FarmCardProps) => {
+  const handleOnPressMap = async () => {
+    const url = `https://www.google.com/maps/search/?api=1&query=${farm.latitude},${farm.longitude}`
+    await Linking.openURL(url)
+  }
+
+  const handleNavigateToFarmDetails = () => {
+    router.push({
+      pathname: '/(app)/farms/[farmId]',
+      params: {
+        farmId: farm.id
+      }
+    })
+  }
+
   return (
     <Pressable
-      onPress={() => {}}
-      className='rounded-lg border border-primary bg-white p-4'
+      onPress={handleNavigateToFarmDetails}
+      className='rounded-lg border-2 border-primary bg-white p-4'
     >
-      <Text className='text-lg font-semibold text-black'>{farm.name}</Text>
-      {farm.favourite ? (
-        <FontAwesome name='heart' size={24} color='red' />
-      ) : (
-        <FontAwesome name='heart-o' size={24} color='black' />
-      )}
-      <Text className='text-lg font-semibold text-black'>
-        {formatDate(farm.createdDate)}
-      </Text>
+      <View className='flex-row items-center justify-between mb-2'>
+        <Text className='text-xl font-semibold text-black'>{farm.name}</Text>
+        {farm.favourite ? (
+          <FontAwesome name='heart' size={24} color='red' />
+        ) : (
+          <FontAwesome name='heart-o' size={24} color='black' />
+        )}
+      </View>
+      <View className='pl-1'>
+        {farm.latitude && farm.longitude && (
+          <Pressable
+            onPress={handleOnPressMap}
+            className='flex-row items-center mb-4 self-start'
+          >
+            <FontAwesome5 name='map-marked-alt' size={24} color='black' />
+            <Text className='text-base font-medium text-black ml-2 pt-1'>
+              Ver en mapa
+            </Text>
+          </Pressable>
+        )}
+        <Text className='text-base font-light text-black'>
+          Creado el {formatDate(farm.createdDate)}
+        </Text>
+      </View>
     </Pressable>
   )
 }

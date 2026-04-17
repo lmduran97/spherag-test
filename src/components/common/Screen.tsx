@@ -11,7 +11,7 @@ export function Screen({ children, scrollable = false }: ScreenProps) {
   if (scrollable) {
     return (
       <SafeAreaView
-        style={{ flex: 1, backgroundColor: '#FFFFFF', paddingTop: 20 }}
+        style={{ flex: 1, backgroundColor: '#FFFFFF', paddingTop: 40 }}
       >
         <ScrollView
           className='flex-1'
@@ -30,7 +30,7 @@ export function Screen({ children, scrollable = false }: ScreenProps) {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: '#FFFFFF', paddingTop: 20 }}
+      style={{ flex: 1, backgroundColor: '#FFFFFF', paddingTop: 40 }}
     >
       <View className='flex-1 bg-background px-4 pt-3'>{children}</View>
     </SafeAreaView>

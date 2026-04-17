@@ -1,13 +1,16 @@
+import { useState } from 'react'
+import { ActivityIndicator, FlatList, Text, View } from 'react-native'
+
 import { Screen } from '@/src/components/common/Screen'
 import { FarmCard } from '@/src/features/farms/components/FarmCard'
 import { useGetFarms } from '@/src/features/farms/hooks/useGetFarms'
 import { Farm } from '@/src/features/farms/types/farms.types'
-import { ActivityIndicator, FlatList, Text, View } from 'react-native'
 
 export default function FarmsScreen() {
-  const { data, isPending, isError, error } = useGetFarms()
+  const { data, isPending, isError, error, refetch } = useGetFarms()
+  const [isRefreshing, setIsRefreshing] = useState(false)
 
-  if (isPending) {
+  if (isPending || isRefreshing) {
     return (
       <Screen>
         <ActivityIndicator />
@@ -25,7 +28,7 @@ export default function FarmsScreen() {
 
   const renderEmptyList = () => {
     return (
-      <View>
+      <View className='items-center mt-10'>
         <Text className='text-lg font-semibold text-black'>
           No tienes ninguna finca registrada
         </Text>
@@ -39,15 +42,22 @@ export default function FarmsScreen() {
 
   const itemSeparatorComponent = () => <View className='h-6' />
 
+  const handleOnRefresh = () => {
+    setIsRefreshing(true)
+    refetch().finally(() => setIsRefreshing(false))
+  }
+
   return (
     <Screen>
-      <Text className='text-xl font-bold text-black mb-8'>
+      <Text className='text-xl font-bold text-black mb-6'>
         Listado de fincas
       </Text>
 
       <FlatList
         data={data}
         keyExtractor={(item) => item.id}
+        onRefresh={handleOnRefresh}
+        refreshing={isRefreshing}
         renderItem={renderItem}
         ItemSeparatorComponent={itemSeparatorComponent}
         ListEmptyComponent={renderEmptyList}

@@ -1,10 +1,9 @@
 import { useAuthStore } from '@/src/features/auth/store/auth.store'
-import { Redirect } from 'expo-router'
+import { Redirect, Stack } from 'expo-router'
 import { ActivityIndicator, View } from 'react-native'
 
-export default function IndexScreen() {
+export default function PublicLayout() {
   const { hasHydrated, token } = useAuthStore()
-  const nextScreen = token ? '/farms' : '/login'
 
   if (!hasHydrated) {
     return (
@@ -14,5 +13,9 @@ export default function IndexScreen() {
     )
   }
 
-  return <Redirect href={nextScreen} />
+  if (token) {
+    return <Redirect href={'/farms'} />
+  }
+
+  return <Stack screenOptions={{ headerShown: false }} />
 }

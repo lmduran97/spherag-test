@@ -14,7 +14,6 @@ export const login = async (request: LoginRequest): Promise<LoginResponse> => {
 
     try {
       const errorData = await response.json()
-      console.log(errorData)
       errorMessage = errorData.message || errorMessage
     } catch {
       // We couldn't parse the error response, so we'll use the default error message

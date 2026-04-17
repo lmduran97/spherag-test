@@ -1,4 +1,6 @@
+import { Screen } from '@/src/components/common/Screen'
 import { useLogin } from '@/src/features/auth/hooks/useLogin'
+import { useAuthStore } from '@/src/features/auth/store/auth.store'
 import { router } from 'expo-router'
 import { useState } from 'react'
 import { Pressable, Text, TextInput, View } from 'react-native'
@@ -8,6 +10,7 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('')
 
   const { mutate, isPending, error } = useLogin()
+  const { setToken } = useAuthStore()
 
   const handleLogin = () => {
     mutate(
@@ -17,15 +20,15 @@ export default function LoginScreen() {
       },
       {
         onSuccess: (data) => {
-          console.log('Login successful:', data)
-          router.replace('/farms')
+          setToken(data.accessToken.token)
+          router.replace('/(app)/farms')
         }
       }
     )
   }
 
   return (
-    <View className='flex-1 items-center bg-white px-4'>
+    <Screen>
       <Text className='text-xl font-bold text-black mb-20'>Login</Text>
 
       <View className='mb-6'>
@@ -70,6 +73,6 @@ export default function LoginScreen() {
           {isPending ? 'Cargando...' : 'Acceder'}
         </Text>
       </Pressable>
-    </View>
+    </Screen>
   )
 }

@@ -23,10 +23,8 @@ export const getFarmDetails = async ({
 
   const data = await response.json()
 
-  console.log(data)
-
   if (!response.ok) {
-    throw new Error('Error al obtener el listado de fincas')
+    throw new Error('Error al obtener el detalle de la finca')
   }
 
   return {

@@ -1,13 +1,17 @@
+import Logo from '@/assets/images/logo.png'
 import { Screen } from '@/src/components/common/Screen'
 import { useLogin } from '@/src/features/auth/hooks/useLogin'
 import { useAuthStore } from '@/src/features/auth/store/auth.store'
+import { Feather } from '@expo/vector-icons'
+import AntDesign from '@expo/vector-icons/AntDesign'
 import { router } from 'expo-router'
-import { useState } from 'react'
-import { Pressable, Text, TextInput, View } from 'react-native'
+import { useMemo, useState } from 'react'
+import { Image, Pressable, Text, TextInput, View } from 'react-native'
 
 export default function LoginScreen() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
 
   const { mutate, isPending, error } = useLogin()
   const { setToken } = useAuthStore()
@@ -27,11 +31,24 @@ export default function LoginScreen() {
     )
   }
 
+  const isButtonDisabled = useMemo(() => {
+    if (username.trim() === '' || password.trim() === '') {
+      return true
+    }
+
+    return false
+  }, [username, password])
+
   return (
     <Screen>
-      <Text className='text-xl font-bold text-black mb-20'>Login</Text>
+      <Image
+        source={Logo}
+        className='self-center mt-20 mb-32 rounded-3xl border h-40 w-40'
+        height={160}
+        width={160}
+      />
 
-      <View className='mb-6'>
+      <View className='mb-12 px-4'>
         <Text className='text-lg font-semibold text-primary mb-2'>Usuario</Text>
         <TextInput
           value={username}
@@ -43,36 +60,73 @@ export default function LoginScreen() {
         />
       </View>
 
-      <View className='mb-6'>
+      <View className='mb-20 px-4'>
         <Text className='text-lg font-semibold text-primary mb-2'>
           Contraseña
         </Text>
-        <TextInput
-          value={password}
-          onChangeText={setPassword}
-          autoCapitalize='none'
-          className='border border-primary rounded-lg px-4 py-3 text-base'
-          placeholder='Contraseña'
-          secureTextEntry
-          returnKeyType='send'
-          onSubmitEditing={handleLogin}
-        />
+        <View className='relative'>
+          <TextInput
+            value={password}
+            onChangeText={setPassword}
+            autoCapitalize='none'
+            className='border border-primary rounded-lg px-4 py-3 text-base mb-4'
+            placeholder='Contraseña'
+            secureTextEntry={!showPassword}
+            returnKeyType='send'
+            onSubmitEditing={handleLogin}
+          />
+          <Pressable
+            onPress={() => setShowPassword((prev) => !prev)}
+            className='absolute right-4 top-3'
+            hitSlop={10}
+          >
+            <Feather
+              name={showPassword ? 'eye-off' : 'eye'}
+              size={20}
+              color='gray'
+            />
+          </Pressable>
+        </View>
+        <View>
+          <View className='flex-row items-center gap-2 mb-1'>
+            <AntDesign name='info-circle' size={16} color='#283370' />
+            <Text className='text-sm text-black'>Recuerda:</Text>
+          </View>
+          <View className='pl-4'>
+            <Text className='text-sm text-black'>
+              · Debe incluir letras y numeros
+            </Text>
+            <Text className='text-sm text-black'>
+              · Debe combinar letras mayusculas y minusculas
+            </Text>
+            <Text className='text-sm text-black'>
+              · Debe incluir caracteres especiales (#, $, +, =, !)
+            </Text>
+          </View>
+        </View>
       </View>
 
       {error && (
-        <Text className='text-red-500 text-sm mb-4'>{error.message}</Text>
+        <View className='pl-4'>
+          <Text className='text-red-500 text-base mb-4'>{error.message}</Text>
+        </View>
       )}
-
-      <Pressable
-        onPress={handleLogin}
-        disabled={isPending}
-        className='bg-primary rounded-lg px-4 py-3 w-full items-center justify-center'
-        style={{ opacity: isPending ? 0.7 : 1 }}
-      >
-        <Text className='text-text_primary text-base font-semibold'>
-          {isPending ? 'Cargando...' : 'Acceder'}
-        </Text>
-      </Pressable>
+      <View className='px-4'>
+        <Pressable
+          onPress={handleLogin}
+          disabled={isPending || isButtonDisabled}
+          className='rounded-lg py-3 items-center justify-center'
+          style={{
+            opacity: isPending ? 0.7 : 1,
+            backgroundColor:
+              isPending || isButtonDisabled ? '#9b9b9b' : '#283370'
+          }}
+        >
+          <Text className='text-text_primary text-base font-semibold'>
+            {isPending ? 'Cargando...' : 'Acceder'}
+          </Text>
+        </Pressable>
+      </View>
     </Screen>
   )
 }

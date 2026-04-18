@@ -1,8 +1,8 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5'
-import { Linking, Pressable, Text, View } from 'react-native'
+import { Pressable, Text, View } from 'react-native'
 
-import { formatDate } from '@/src/utils/functions'
+import { formatDate, handleOnPressMap } from '@/src/utils/functions'
 import { router } from 'expo-router'
 import React from 'react'
 import { Farm } from '../types/farms.types'
@@ -12,11 +12,6 @@ type FarmCardProps = {
 }
 
 export const FarmCard = ({ farm }: FarmCardProps) => {
-  const handleOnPressMap = async () => {
-    const url = `https://www.google.com/maps/search/?api=1&query=${farm.latitude},${farm.longitude}`
-    await Linking.openURL(url)
-  }
-
   const handleNavigateToFarmDetails = () => {
     router.push({
       pathname: '/(app)/farms/[farmId]',
@@ -29,7 +24,7 @@ export const FarmCard = ({ farm }: FarmCardProps) => {
   return (
     <Pressable
       onPress={handleNavigateToFarmDetails}
-      className='rounded-lg border-2 border-primary bg-white p-4'
+      className='rounded-lg border-2 border-primary bg-[#EBEAF1] p-4'
     >
       <View className='flex-row items-center justify-between mb-2'>
         <Text className='text-xl font-semibold text-black'>{farm.name}</Text>
@@ -42,7 +37,7 @@ export const FarmCard = ({ farm }: FarmCardProps) => {
       <View className='pl-1'>
         {farm.latitude && farm.longitude && (
           <Pressable
-            onPress={handleOnPressMap}
+            onPress={() => handleOnPressMap(farm.latitude, farm.longitude)}
             className='flex-row items-center mb-4 self-start'
           >
             <FontAwesome5 name='map-marked-alt' size={24} color='black' />

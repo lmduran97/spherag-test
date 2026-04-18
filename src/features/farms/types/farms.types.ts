@@ -1,5 +1,5 @@
 export type Farm = {
-  id: string
+  id: number
   measuringSystemTypeId: number
   timeZone: string
   latitude: string
@@ -42,4 +42,25 @@ export type FarmDetailsResponse = {
   totalCount: number
   hasPreviousPage: boolean
   hasNextPage: boolean
+}
+
+export type AtlasDetailsRequest = {
+  farmId: string
+  imei: string
+}
+
+export type AtlasDetailsResponse = {
+  imei: string
+  name: string
+  type: number
+  productTypeName: string
+  systemId: number
+  latitude: string
+  longitude: string
+  batteryPercentage: number
+  signalPercentage: number
+  expiredDate: string
+  atlasStatus: number
+  energyMode: number
+  connectors: object
 }

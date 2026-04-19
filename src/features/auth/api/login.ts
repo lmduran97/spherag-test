@@ -1,7 +1,7 @@
 import { LoginRequest, LoginResponse } from '../types/auth.types'
 
 export const login = async (request: LoginRequest): Promise<LoginResponse> => {
-  const response = await fetch('https://api.spherag.com/Authentication/Login', {
+  const response = await fetch(process.env.EXPO_PUBLIC_API_LOGIN, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

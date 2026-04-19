@@ -8,10 +8,8 @@ export const getFarmDetails = async ({
 }: FarmDetailsRequest): Promise<FarmDetailsResponse> => {
   const token = useAuthStore.getState().token
 
-  console.log('llamo get!')
-
   const response = await fetch(
-    `https://apicore.spherag.com/systems/${farmId}/Atlas/?Init=${init}&Limit=${limit}`,
+    `${process.env.EXPO_PUBLIC_API_APP}/systems/${farmId}/Atlas/?Init=${init}&Limit=${limit}`,
     {
       method: 'GET',
       headers: {

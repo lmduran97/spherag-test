@@ -11,7 +11,7 @@ export const getAtlasDetails = async ({
   const token = useAuthStore.getState().token
 
   const response = await fetch(
-    `https://apicore.spherag.com/systems/${farmId}/Atlas/${imei}`,
+    `${process.env.EXPO_PUBLIC_API_APP}/systems/${farmId}/Atlas/${imei}`,
     {
       method: 'GET',
       headers: {
@@ -24,7 +24,7 @@ export const getAtlasDetails = async ({
   const data = await response.json()
 
   if (!response.ok) {
-    throw new Error('Error al obtener el detalle de la finca')
+    throw new Error('Error al obtener los detalles del Atlas')
   }
 
   return {

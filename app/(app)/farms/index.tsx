@@ -1,3 +1,4 @@
+import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons'
 import { router } from 'expo-router'
 import { useState } from 'react'
 import {
@@ -77,17 +78,25 @@ export default function FarmsScreen() {
       <Text className='text-xl font-bold text-black mb-6'>
         Listado de fincas
       </Text>
-
-      <FlatList
-        data={data}
-        keyExtractor={(item) => item.id.toString()}
-        onRefresh={handleOnRefresh}
-        refreshing={isRefreshing}
-        renderItem={renderItem}
-        ItemSeparatorComponent={itemSeparatorComponent}
-        ListEmptyComponent={renderEmptyList}
-        contentContainerStyle={{ paddingBottom: 24 }}
-        showsVerticalScrollIndicator={false}
+      <View className='flex-1 max-h-[86%] mb-6'>
+        <FlatList
+          data={data}
+          keyExtractor={(item) => item.id.toString()}
+          onRefresh={handleOnRefresh}
+          refreshing={isRefreshing}
+          renderItem={renderItem}
+          ItemSeparatorComponent={itemSeparatorComponent}
+          ListEmptyComponent={renderEmptyList}
+          contentContainerStyle={{ paddingBottom: 24 }}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
+      <SimpleLineIcons
+        name='logout'
+        onPress={logOut}
+        size={22}
+        color='white'
+        className='self-end border p-4 rounded-full bg-primary mb-6'
       />
     </Screen>
   )

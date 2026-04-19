@@ -82,6 +82,7 @@ export default function AtlasDetailsScreen() {
         <MapView
           style={{ flex: 1 }}
           className='rounded-lg'
+          mapType='satellite'
           provider={PROVIDER_DEFAULT}
           initialRegion={{
             latitude: Number(data.latitude) ?? 0,

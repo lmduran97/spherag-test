@@ -1,10 +1,9 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5'
+import { router } from 'expo-router'
 import { Pressable, Text, View } from 'react-native'
 
 import { formatDate, handleOnPressMap } from '@/src/utils/functions'
-import { router } from 'expo-router'
-import React from 'react'
 import { Farm } from '../types/farms.types'
 
 type FarmCardProps = {

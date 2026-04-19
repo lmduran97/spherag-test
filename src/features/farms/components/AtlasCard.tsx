@@ -1,10 +1,10 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome'
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import { router } from 'expo-router'
 import React from 'react'
 import { Pressable, Text, View } from 'react-native'
 
 import { formatDate } from '@/src/utils/functions'
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
-import { router } from 'expo-router'
 import { Atlas } from '../types/farms.types'
 
 type AtlasCardProps = {

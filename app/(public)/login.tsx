@@ -5,7 +5,7 @@ import { useMemo, useState } from 'react'
 import { Image, Pressable, Text, TextInput, View } from 'react-native'
 
 import Logo from '@/assets/images/logo.png'
-import { Screen } from '@/src/components/common/Screen'
+import { Screen } from '@/src/components/Screen'
 import { useLogin } from '@/src/features/auth/hooks/useLogin'
 import { useAuthStore } from '@/src/features/auth/store/auth.store'
 

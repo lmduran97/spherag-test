@@ -1,5 +1,5 @@
 import Entypo from '@expo/vector-icons/Entypo'
-
+import FontAwesome from '@expo/vector-icons/FontAwesome'
 import { router, useLocalSearchParams } from 'expo-router'
 import { useEffect, useRef, useState } from 'react'
 import {
@@ -10,14 +10,13 @@ import {
   View
 } from 'react-native'
 
-import { PaginationComponent } from '@/src/components/common/PaginationComponent'
-import { Screen } from '@/src/components/common/Screen'
+import { PaginationComponent } from '@/src/components/PaginationComponent'
+import { Screen } from '@/src/components/Screen'
 import { AtlasCard } from '@/src/features/farms/components/AtlasCard'
 import { useGetFarmDetails } from '@/src/features/farms/hooks/useGetFarmDetails'
 import { Atlas, Farm } from '@/src/features/farms/types/farms.types'
 import { queryClient } from '@/src/lib/query/queryClient'
 import { formatDate, handleOnPressMap } from '@/src/utils/functions'
-import FontAwesome from '@expo/vector-icons/FontAwesome'
 
 const PAGESIZE = 10
 

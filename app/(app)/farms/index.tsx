@@ -9,7 +9,7 @@ import {
   View
 } from 'react-native'
 
-import { Screen } from '@/src/components/common/Screen'
+import { Screen } from '@/src/components/Screen'
 import { useAuthStore } from '@/src/features/auth/store/auth.store'
 import { FarmCard } from '@/src/features/farms/components/FarmCard'
 import { useGetFarms } from '@/src/features/farms/hooks/useGetFarms'

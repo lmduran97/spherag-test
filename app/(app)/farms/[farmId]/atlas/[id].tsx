@@ -1,10 +1,11 @@
-import { Screen } from '@/src/components/common/Screen'
-import { useGetAtlasDetails } from '@/src/features/farms/hooks/useGetAtlasDetails'
-import { formatDate } from '@/src/utils/functions'
 import { Entypo } from '@expo/vector-icons'
 import { router, useLocalSearchParams } from 'expo-router'
 import { ActivityIndicator, Text, View } from 'react-native'
 import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps'
+
+import { Screen } from '@/src/components/Screen'
+import { useGetAtlasDetails } from '@/src/features/farms/hooks/useGetAtlasDetails'
+import { formatDate } from '@/src/utils/functions'
 
 export default function AtlasDetailsScreen() {
   const { farmId, imei } = useLocalSearchParams<{

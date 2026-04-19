@@ -52,6 +52,13 @@ export default function FarmDetailsScreen() {
   if (!selectedFarm) {
     return (
       <Screen>
+        <Entypo
+          name='chevron-left'
+          size={32}
+          color='black'
+          className='-ml-3 mb-6'
+          onPress={() => router.back()}
+        />
         <Text className='text-center text-red-500 pt-40'>
           Error al cargar los datos de la finca
         </Text>
@@ -62,6 +69,13 @@ export default function FarmDetailsScreen() {
   if (isError) {
     return (
       <Screen>
+        <Entypo
+          name='chevron-left'
+          size={32}
+          color='black'
+          className='-ml-3 mb-6'
+          onPress={() => router.back()}
+        />
         <Text className='text-center text-red-500'>{error.message}</Text>
       </Screen>
     )

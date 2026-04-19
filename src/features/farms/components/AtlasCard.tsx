@@ -80,7 +80,8 @@ export const AtlasCard = ({ atlas, farmId }: AtlasCardProps) => {
       pathname: '/(app)/farms/[farmId]/atlas/[id]',
       params: {
         farmId: farmId,
-        id: atlas.id.toString()
+        id: atlas.id.toString(),
+        imei: atlas.imei
       }
     })
   }

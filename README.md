@@ -1,50 +1,100 @@
-# Welcome to your Expo app 👋
-
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# Spherag Test App
 
 ## Get started
 
-1. Install dependencies
+1. Paste .env file in root project
+
+2. Install dependencies
 
    ```bash
    npm install
    ```
 
-2. Start the app
+3. Start the app
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+## Application functionality:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- Login
+- List user farms
+- Access farm details and browse all atlas registered in that farm
+- Access atlas details and view the location on a map
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Tech Stack
 
-## Get a fresh project
+- **Expo**
+- **React Native**
+- **TypeScript**
+- **Expo Router**
+- **Expo Vector Icons**
+- **TanStack Query**
+- **Zustand**
+- **NativeWind**
+- **React Native Maps**
 
-When you're ready, run:
+## Technical decisions
+
+### Navigation
+The app uses **Expo Router** to define navigation through file-based routing and to separate public and protected flows.
+
+- (public): contains the login screen
+- (app): contains authenticated screen
+
+### State management
+Two different kinds of states are handled separately:
+
+- TanStack Query: for server state and API caching
+- Zustand: for global authentication
+
+### Session persistence
+The authentication token is stored locally in order to persist the user session between app restarts.
+
+### Project structure
+The project is organized by **feature**, grouping each domain into:
+
+- `api`
+- `components`
+- `hooks`
+- `stores`
+- `types`
+
+This keeps the codebase clean and scalable, even for a small application.
+
+## Project structure
 
 ```bash
-npm run reset-project
-```
+app/
+  _layout.tsx
+  index.tsx
+  (public)/
+    _layout.tsx
+    login.tsx
+  (app)/
+    _layout.tsx
+    farms/
+      index.tsx
+      [farmId]/
+        index.tsx
+        atlas/
+          [id].tsx
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+src/
+  components/
+  features/
+    auth/
+      api/
+      hooks/
+      store/
+      types/
+    farms/
+      api/
+      components/
+      hooks/
+      types/
+   lib/
+      query/
+   utils/
+   

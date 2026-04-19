@@ -52,6 +52,7 @@ export default function LoginScreen() {
       <View className='mb-12 px-4'>
         <Text className='text-lg font-semibold text-primary mb-2'>Usuario</Text>
         <TextInput
+          testID='username-input'
           value={username}
           onChangeText={setUsername}
           autoCapitalize='none'
@@ -67,6 +68,7 @@ export default function LoginScreen() {
         </Text>
         <View className='relative'>
           <TextInput
+            testID='password-input'
             value={password}
             onChangeText={setPassword}
             autoCapitalize='none'
@@ -114,6 +116,7 @@ export default function LoginScreen() {
       )}
       <View className='px-4'>
         <Pressable
+          testID='login-button'
           onPress={handleLogin}
           disabled={isPending || isButtonDisabled}
           className='rounded-lg py-3 items-center justify-center'

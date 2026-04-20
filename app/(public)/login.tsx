@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons'
 import AntDesign from '@expo/vector-icons/AntDesign'
-import { router } from 'expo-router'
+import { useRouter } from 'expo-router'
 import { useMemo, useState } from 'react'
 import { Image, Pressable, Text, TextInput, View } from 'react-native'
 
@@ -14,6 +14,7 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
 
+  const router = useRouter()
   const { mutate, isPending, error } = useLogin()
   const { setToken } = useAuthStore()
 
@@ -39,6 +40,8 @@ export default function LoginScreen() {
 
     return false
   }, [username, password])
+
+  const toggleShowPassword = () => setShowPassword((prev) => !prev)
 
   return (
     <Screen>
@@ -79,7 +82,8 @@ export default function LoginScreen() {
             onSubmitEditing={handleLogin}
           />
           <Pressable
-            onPress={() => setShowPassword((prev) => !prev)}
+            testID='toggle-show-password-button'
+            onPress={toggleShowPassword}
             className='absolute right-4 top-3'
             hitSlop={10}
           >

@@ -109,6 +109,60 @@ export default function FarmDetailsScreen() {
     setPage((prev) => prev + 1)
   }
 
+  const renderFavoriteIcon = () => {
+    if (selectedFarm.favourite) {
+      return <FontAwesome name='heart' size={24} color='red' />
+    }
+
+    return <FontAwesome name='heart-o' size={24} color='black' />
+  }
+
+  const renderFarmDescription = () => {
+    if (selectedFarm.description) {
+      return (
+        <Text className='text-lg text-black mb-2'>
+          {selectedFarm.description}
+        </Text>
+      )
+    }
+
+    return null
+  }
+
+  const renderCoordinatesButton = () => {
+    if (selectedFarm.latitude && selectedFarm.longitude) {
+      return (
+        <View className='flex-row items-center gap-2 mb-2'>
+          <Entypo name='pin' size={16} color='black' />
+          <Pressable
+            onPress={() =>
+              handleOnPressMap(selectedFarm.latitude, selectedFarm.longitude)
+            }
+            className='rounded-md bg-primary p-2'
+          >
+            <Text className='text-base text-white'>
+              Lat: {selectedFarm.latitude}, Long: {selectedFarm.longitude}
+            </Text>
+          </Pressable>
+        </View>
+      )
+    }
+
+    return null
+  }
+
+  const renderCreatedDateText = () => {
+    if (selectedFarm.createdDate) {
+      return (
+        <Text className='text-base font-light text-black'>
+          Creado el {formatDate(selectedFarm.createdDate)}
+        </Text>
+      )
+    }
+
+    return null
+  }
+
   return (
     <Screen>
       <Entypo
@@ -126,42 +180,16 @@ export default function FarmDetailsScreen() {
           <Text className='text-xl font-semibold text-black'>
             {selectedFarm.name}
           </Text>
-          {selectedFarm.favourite ? (
-            <FontAwesome name='heart' size={24} color='red' />
-          ) : (
-            <FontAwesome name='heart-o' size={24} color='black' />
-          )}
+          {renderFavoriteIcon()}
         </View>
-        {selectedFarm.description && (
-          <Text className='text-lg text-black mb-2'>
-            {selectedFarm.description}
-          </Text>
-        )}
-        {selectedFarm.latitude && selectedFarm.longitude && (
-          <View className='flex-row items-center gap-2 mb-2'>
-            <Entypo name='pin' size={16} color='black' />
-            <Pressable
-              onPress={() =>
-                handleOnPressMap(selectedFarm.latitude, selectedFarm.longitude)
-              }
-              className='rounded-md bg-primary p-2'
-            >
-              <Text className='text-base text-white'>
-                Lat: {selectedFarm.latitude}, Long: {selectedFarm.longitude}
-              </Text>
-            </Pressable>
-          </View>
-        )}
-        {selectedFarm.createdDate && (
-          <Text className='text-base font-light text-black'>
-            Creado el {formatDate(selectedFarm.createdDate)}
-          </Text>
-        )}
+        {renderFarmDescription()}
+        {renderCoordinatesButton()}
+        {renderCreatedDateText()}
       </View>
 
       <View className='h-[1px] w-full bg-primary mb-4' />
 
-      <View className='flex-1 max-h-[62%] mb-4'>
+      <View className='flex-1 max-h-[60%] mb-8'>
         <Text className='text-xl font-semibold text-black mb-4'>
           Listado de Atlas
         </Text>

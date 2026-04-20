@@ -16,7 +16,7 @@
    npx expo start
    ```
 
-## Application functionality:
+## Application functionality
 
 - Login
 - List user farms
@@ -38,21 +38,25 @@
 ## Technical decisions
 
 ### Navigation
+
 The app uses **Expo Router** to define navigation through file-based routing and to separate public and protected flows.
 
 - (public): contains the login screen
 - (app): contains authenticated screen
 
 ### State management
+
 Two different kinds of states are handled separately:
 
 - TanStack Query: for server state and API caching
 - Zustand: for global authentication
 
 ### Session persistence
+
 The authentication token is stored locally in order to persist the user session between app restarts.
 
 ### Project structure
+
 The project is organized by **feature**, grouping each domain into:
 
 - `api`
@@ -97,4 +101,5 @@ src/
    lib/
       query/
    utils/
-   
+
+```

@@ -1,6 +1,7 @@
 import { Entypo } from '@expo/vector-icons'
 import { router, useLocalSearchParams } from 'expo-router'
-import { ActivityIndicator, Text, View } from 'react-native'
+import { useState } from 'react'
+import { ActivityIndicator, Switch, Text, View } from 'react-native'
 import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps'
 
 import { Screen } from '@/src/components/Screen'
@@ -18,6 +19,8 @@ export default function AtlasDetailsScreen() {
     farmId,
     imei
   })
+
+  const [satelliteView, setSatelliteview] = useState(false)
 
   if (isPending) {
     return (
@@ -77,12 +80,23 @@ export default function AtlasDetailsScreen() {
         </View>
       </View>
 
-      <Text className='text-lg font-bold mb-1'>Localización</Text>
+      <Text className='text-xl font-bold mb-1'>Localización</Text>
+      <View className='flex-row items-center gap-2 pl-2'>
+        <Text className='text-lg'>Satélite</Text>
+        <Switch
+          value={satelliteView}
+          trackColor={{
+            false: 'gray',
+            true: '#283370'
+          }}
+          onValueChange={() => setSatelliteview((prev) => !prev)}
+        />
+      </View>
       <View className='flex-1 mb-28 rounded-md overflow-hidden'>
         <MapView
           style={{ flex: 1 }}
           className='rounded-lg'
-          mapType='satellite'
+          mapType={satelliteView ? 'satellite' : 'standard'}
           provider={PROVIDER_DEFAULT}
           initialRegion={{
             latitude: Number(data.latitude) ?? 0,
